@@ -72,9 +72,8 @@ public class FCMPlugin extends CordovaPlugin {
 								Log.d(TAG, "\tpayload: " + key + " => " + lastPush.get(key));
 							}
 							callbackContext.success( jo.toString() );
-							Log.d(TAG,"\tToken: "+ token);
 						}catch(Exception e){
-							Log.d(TAG,"\tError retrieving token");
+							Log.d(TAG,"\tError retrieving lastPush");
 						}
 					}
 				});
