@@ -61,6 +61,24 @@ public class FCMPlugin extends CordovaPlugin {
 					}
 				});
 			}
+			// GET LAST PUSH //
+			else if (action.equals("getLastPush")) {
+				cordova.getActivity().runOnUiThread(new Runnable() {
+					public void run() {
+						try{
+							JSONObject jo = new JSONObject();
+							for (String key : lastPush.keySet()) {
+								jo.put(key, lastPush.get(key));
+								Log.d(TAG, "\tpayload: " + key + " => " + lastPush.get(key));
+							}
+							callbackContext.success( jo.toString() );
+							Log.d(TAG,"\tToken: "+ token);
+						}catch(Exception e){
+							Log.d(TAG,"\tError retrieving token");
+						}
+					}
+				});
+			}
 			// NOTIFICATION CALLBACK REGISTER //
 			else if (action.equals("registerNotification")) {
 				notificationCallBackReady = true;

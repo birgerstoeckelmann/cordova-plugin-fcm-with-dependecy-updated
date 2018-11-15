@@ -49,6 +49,24 @@ static FCMPlugin *fcmPluginInstance;
     }];
 }
 
+- (void) getLastPush:(CDVInvokedUrlCommand *)command
+{
+
+    NSData* lastPush = [AppDelegate getLastPush];
+
+    NSLog(@"get lastPush %@", lastPush);
+
+    [self.commandDelegate runInBackground:^{
+
+        NSString *JSONString = [[NSString alloc] initWithBytes:[lastPush bytes] length:[lastPush length] encoding:NSUTF8StringEncoding];
+
+        CDVPluginResult* pluginResult = nil;
+        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:JSONString];
+        [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
+
+    }];
+}
+
 // UN/SUBSCRIBE TOPIC //
 - (void) subscribeToTopic:(CDVInvokedUrlCommand *)command 
 {
